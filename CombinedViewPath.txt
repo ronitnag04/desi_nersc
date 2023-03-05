@@ -1,0 +1,34 @@
+level:1, photometry -> target | ph.targetid=tg.targetid AND 
+
+level:2, target -> fiberassign | ph.targetid=fb.targetid AND tg.targetid=fb.targetid AND tg.id=fb.id AND tg.tileid=fb.tileid AND
+
+level:3, fiberassign -> tile |  AND tg.program=t.program AND tg.survey=t.survey AND tg.tileid=t.tileid AND fb.tileid=t.tileid AND
+
+level:4, tile -> frame | ph.ebv=fr.ebv AND tg.tileid=fr.tileid AND fb.tileid=fr.tileid AND t.tileid=fr.tileid AND t.exptime=fr.exptime AND
+
+level:5, frame -> ztile | ph.targetid=zt.targetid AND tg.survey=zt.survey AND tg.program=zt.program AND tg.targetid=zt.targetid AND tg.id=zt.id AND tg.tileid=zt.tileid AND fb.targetid=zt.targetid AND fb.id=zt.id AND fb.tileid=zt.tileid AND t.program=zt.program AND t.survey=zt.survey AND t.tileid=zt.tileid AND fr.tsnr2_lya=zt.tsnr2_lya AND fr.tsnr2_lrg=zt.tsnr2_lrg AND fr.tsnr2_gpbbackup=zt.tsnr2_gpbbackup AND fr.tsnr2_elg=zt.tsnr2_elg AND fr.tsnr2_gpbbright=zt.tsnr2_gpbbright AND fr.tsnr2_qso=zt.tsnr2_qso AND fr.tileid=zt.tileid AND fr.tsnr2_bgs=zt.tsnr2_bgs AND fr.tsnr2_gpbdark=zt.tsnr2_gpbdark AND 
+
+
+SELECT * FROM 
+fuji.photometry ph
+INNER JOIN fuji.target tg
+ON ph.targetid=tg.targetid
+INNER JOIN fuji.fiberassign fb
+ON ph.targetid=fb.targetid AND tg.targetid=fb.targetid AND tg.id=fb.id AND tg.tileid=fb.tileid
+INNER JOIN fuji.tile t
+ON tg.program=t.program AND tg.survey=t.survey AND tg.tileid=t.tileid AND fb.tileid=t.tileid 
+INNER JOIN fuji.frame fr
+ON ph.ebv=fr.ebv AND tg.tileid=fr.tileid AND fb.tileid=fr.tileid AND t.tileid=fr.tileid AND t.exptime=fr.exptime 
+INNER JOIN fuji.ztile zt
+ON ph.targetid=zt.targetid AND tg.survey=zt.survey AND tg.program=zt.program AND tg.targetid=zt.targetid AND tg.id=zt.id AND tg.tileid=zt.tileid AND fb.targetid=zt.targetid AND fb.id=zt.id AND fb.tileid=zt.tileid AND t.program=zt.program AND t.survey=zt.survey AND t.tileid=zt.tileid AND fr.tileid=zt.tileid
+LIMIT 3;
+
+SELECT * 
+FROM fuji.frame as fr, fuji.ztile as zt
+WHERE fr.tsnr2_lya=zt.tsnr2_lya AND fr.tsnr2_lrg=zt.tsnr2_lrg AND fr.tsnr2_gpbbackup=zt.tsnr2_gpbbackup AND fr.tsnr2_elg=zt.tsnr2_elg AND fr.tsnr2_gpbbright=zt.tsnr2_gpbbright AND fr.tsnr2_qso=zt.tsnr2_qso AND fr.tileid=zt.tileid AND fr.tsnr2_bgs=zt.tsnr2_bgs AND fr.tsnr2_gpbdark=zt.tsnr2_gpbdark
+LIMIT 3;
+
+SELECT fr.tsnr2_lya, zt.tsnr2_lya, fr.tsnr2_lrg, zt.tsnr2_lrg
+FROM fuji.frame as fr, fuji.ztile as zt
+WHERE fr.tileid=zt.tileid 
+LIMIT 3;
