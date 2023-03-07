@@ -90,9 +90,9 @@ Column: frameid INTEGER
 Column: night INTEGER 
 Column: expid INTEGER 
 Column: tileid INTEGER 
-Column: mjd DOUBLE_PRECISION 
+Column: mjd DOUBLE_PRECISION  // timestamp
 Column: exptime REAL 
-Column: ebv REAL 
+Column: ebv REAL              // amount of dust between us and target might keep
 Column: camera VARCHAR(2) 
 Column: tsnr2_gpbdark REAL 
 Column: tsnr2_elg REAL 
@@ -332,26 +332,26 @@ Column: plate_ra DOUBLE_PRECISION
 Column: plate_dec DOUBLE_PRECISION 
 
 ------ tile ------
-Column: tileid INTEGER 
-Column: survey VARCHAR(20) 
-Column: program VARCHAR(6) 
-Column: faprgrm VARCHAR(20) 
-Column: faflavor VARCHAR(20) 
+Column: tileid INTEGER          /*
+Column: survey VARCHAR(20)       *
+Column: program VARCHAR(6)       * Predefined b4 observe 
+Column: faprgrm VARCHAR(20)      *
+Column: faflavor VARCHAR(20)     */
 Column: nexp BIGINT 
 Column: exptime DOUBLE_PRECISION 
-Column: tilera DOUBLE_PRECISION 
-Column: tiledec DOUBLE_PRECISION 
+Column: tilera DOUBLE_PRECISION         /*
+Column: tiledec DOUBLE_PRECISION         */
 Column: efftime_etc DOUBLE_PRECISION 
 Column: efftime_spec DOUBLE_PRECISION 
 Column: efftime_gfa DOUBLE_PRECISION 
-Column: goaltime DOUBLE_PRECISION 
+Column: goaltime DOUBLE_PRECISION         *
 Column: obsstatus VARCHAR(20) 
 Column: lrg_efftime_dark DOUBLE_PRECISION 
 Column: elg_efftime_dark DOUBLE_PRECISION 
 Column: bgs_efftime_bright DOUBLE_PRECISION 
 Column: lya_efftime_dark DOUBLE_PRECISION 
-Column: goaltype VARCHAR(20) 
-Column: mintfrac DOUBLE_PRECISION 
+Column: goaltype VARCHAR(20)           /*
+Column: mintfrac DOUBLE_PRECISION       */ Predefined
 Column: lastnight INTEGER 
 
 ------ exposure ------
