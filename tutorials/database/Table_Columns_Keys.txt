@@ -1,0 +1,481 @@
+Tables sorted by foreign dependency: (Recommended by Postgres)
+  ('version', set())
+  ('photometry', set())
+  ('tile', set())
+  ('fiberassign', {'fiberassign_tileid_fkey', 'fiberassign_targetid_fkey'})
+  ('potential', {'potential_targetid_fkey', 'potential_tileid_fkey'})
+  ('zpix', {'zpix_targetid_fkey'})
+  ('target', {'target_targetid_fkey', 'target_tileid_fkey'})
+  ('exposure', {'exposure_tileid_fkey'})
+  ('frame', {'frame_expid_fkey'})
+  ('ztile', {'ztile_targetphotid_fkey', 'ztile_tileid_fkey', 'ztile_targetid_fkey'})
+
+------------------------------------------------------------------------------------
+Table Primary and Foreign Keys: 
+  fiberassign: 
+   - Primary Key: id 
+   - Foreign Constraints: 
+      - fiberassign.targetid refers to photometry.targetid 
+      - fiberassign.tileid refers to tile.tileid 
+
+  version: 
+   - Primary Key: id 
+
+  potential: 
+   - Primary Key: id 
+   - Foreign Constraints: 
+      - potential.targetid refers to photometry.targetid 
+      - potential.tileid refers to tile.tileid 
+
+  zpix: 
+   - Primary Key: id 
+   - Foreign Constraints: 
+      - zpix.targetid refers to photometry.targetid 
+
+  photometry: 
+   - Primary Key: targetid 
+
+  frame: 
+   - Primary Key: frameid 
+   - Foreign Constraints: 
+      - frame.expid refers to exposure.expid 
+
+  target: 
+   - Primary Key: id 
+   - Foreign Constraints: 
+      - target.targetid refers to photometry.targetid 
+      - target.tileid refers to tile.tileid 
+
+  ztile: 
+   - Primary Key: id 
+   - Foreign Constraints: 
+      - ztile.targetid refers to photometry.targetid 
+      - ztile.targetphotid refers to target.id 
+      - ztile.tileid refers to tile.tileid 
+
+  tile: 
+   - Primary Key: tileid 
+
+  exposure: 
+   - Primary Key: expid 
+   - Foreign Constraints: 
+      - exposure.tileid refers to tile.tileid 
+
+
+------------------------------------------------------------------------------------
+Table Columns and Data Types: 
+ - fiberassign: 
+    - id : NUMERIC(39, 0) 
+    - tileid : INTEGER 
+    - targetid : BIGINT 
+    - petal_loc : SMALLINT 
+    - device_loc : INTEGER 
+    - location : INTEGER 
+    - fiber : INTEGER 
+    - fiberstatus : INTEGER 
+    - target_ra : DOUBLE_PRECISION 
+    - target_dec : DOUBLE_PRECISION 
+    - lambda_ref : REAL 
+    - fa_target : BIGINT 
+    - fa_type : SMALLINT 
+    - fiberassign_x : REAL 
+    - fiberassign_y : REAL 
+    - priority : INTEGER 
+    - plate_ra : DOUBLE_PRECISION 
+    - plate_dec : DOUBLE_PRECISION 
+
+ - version: 
+    - id : INTEGER 
+    - package : VARCHAR(20) 
+    - version : VARCHAR(20) 
+
+ - potential: 
+    - id : NUMERIC(39, 0) 
+    - tileid : INTEGER 
+    - targetid : BIGINT 
+    - fiber : INTEGER 
+    - location : INTEGER 
+
+ - zpix: 
+    - id : NUMERIC(39, 0) 
+    - targetid : BIGINT 
+    - survey : VARCHAR(7) 
+    - program : VARCHAR(6) 
+    - spgrp : VARCHAR(10) 
+    - spgrpval : INTEGER 
+    - healpix : INTEGER 
+    - z : DOUBLE_PRECISION 
+    - zerr : DOUBLE_PRECISION 
+    - zwarn : BIGINT 
+    - chi2 : DOUBLE_PRECISION 
+    - coeff_0 : DOUBLE_PRECISION 
+    - coeff_1 : DOUBLE_PRECISION 
+    - coeff_2 : DOUBLE_PRECISION 
+    - coeff_3 : DOUBLE_PRECISION 
+    - coeff_4 : DOUBLE_PRECISION 
+    - coeff_5 : DOUBLE_PRECISION 
+    - coeff_6 : DOUBLE_PRECISION 
+    - coeff_7 : DOUBLE_PRECISION 
+    - coeff_8 : DOUBLE_PRECISION 
+    - coeff_9 : DOUBLE_PRECISION 
+    - npixels : BIGINT 
+    - spectype : VARCHAR(6) 
+    - subtype : VARCHAR(20) 
+    - ncoeff : BIGINT 
+    - deltachi2 : DOUBLE_PRECISION 
+    - coadd_fiberstatus : INTEGER 
+    - coadd_numexp : SMALLINT 
+    - coadd_exptime : REAL 
+    - coadd_numnight : SMALLINT 
+    - coadd_numtile : SMALLINT 
+    - mean_delta_x : REAL 
+    - rms_delta_x : REAL 
+    - mean_delta_y : REAL 
+    - rms_delta_y : REAL 
+    - mean_fiber_ra : DOUBLE_PRECISION 
+    - std_fiber_ra : REAL 
+    - mean_fiber_dec : DOUBLE_PRECISION 
+    - std_fiber_dec : REAL 
+    - mean_psf_to_fiber_specflux : REAL 
+    - tsnr2_gpbdark_b : REAL 
+    - tsnr2_elg_b : REAL 
+    - tsnr2_gpbbright_b : REAL 
+    - tsnr2_lya_b : REAL 
+    - tsnr2_bgs_b : REAL 
+    - tsnr2_gpbbackup_b : REAL 
+    - tsnr2_qso_b : REAL 
+    - tsnr2_lrg_b : REAL 
+    - tsnr2_gpbdark_r : REAL 
+    - tsnr2_elg_r : REAL 
+    - tsnr2_gpbbright_r : REAL 
+    - tsnr2_lya_r : REAL 
+    - tsnr2_bgs_r : REAL 
+    - tsnr2_gpbbackup_r : REAL 
+    - tsnr2_qso_r : REAL 
+    - tsnr2_lrg_r : REAL 
+    - tsnr2_gpbdark_z : REAL 
+    - tsnr2_elg_z : REAL 
+    - tsnr2_gpbbright_z : REAL 
+    - tsnr2_lya_z : REAL 
+    - tsnr2_bgs_z : REAL 
+    - tsnr2_gpbbackup_z : REAL 
+    - tsnr2_qso_z : REAL 
+    - tsnr2_lrg_z : REAL 
+    - tsnr2_gpbdark : REAL 
+    - tsnr2_elg : REAL 
+    - tsnr2_gpbbright : REAL 
+    - tsnr2_lya : REAL 
+    - tsnr2_bgs : REAL 
+    - tsnr2_gpbbackup : REAL 
+    - tsnr2_qso : REAL 
+    - tsnr2_lrg : REAL 
+    - sv_nspec : SMALLINT 
+    - sv_primary : BOOLEAN 
+    - main_nspec : SMALLINT 
+    - main_primary : BOOLEAN 
+    - zcat_nspec : SMALLINT 
+    - zcat_primary : BOOLEAN 
+
+ - photometry: 
+    - ls_id : BIGINT 
+    - release : SMALLINT 
+    - brickid : INTEGER 
+    - brickname : VARCHAR(8) 
+    - brick_objid : INTEGER 
+    - morphtype : VARCHAR(4) 
+    - ra : DOUBLE_PRECISION 
+    - ra_ivar : REAL 
+    - dec : DOUBLE_PRECISION 
+    - dec_ivar : REAL 
+    - dchisq_psf : REAL 
+    - dchisq_rex : REAL 
+    - dchisq_dev : REAL 
+    - dchisq_exp : REAL 
+    - dchisq_ser : REAL 
+    - ebv : REAL 
+    - flux_g : REAL 
+    - flux_r : REAL 
+    - flux_z : REAL 
+    - flux_ivar_g : REAL 
+    - flux_ivar_r : REAL 
+    - flux_ivar_z : REAL 
+    - mw_transmission_g : REAL 
+    - mw_transmission_r : REAL 
+    - mw_transmission_z : REAL 
+    - fracflux_g : REAL 
+    - fracflux_r : REAL 
+    - fracflux_z : REAL 
+    - fracmasked_g : REAL 
+    - fracmasked_r : REAL 
+    - fracmasked_z : REAL 
+    - fracin_g : REAL 
+    - fracin_r : REAL 
+    - fracin_z : REAL 
+    - nobs_g : SMALLINT 
+    - nobs_r : SMALLINT 
+    - nobs_z : SMALLINT 
+    - psfdepth_g : REAL 
+    - psfdepth_r : REAL 
+    - psfdepth_z : REAL 
+    - galdepth_g : REAL 
+    - galdepth_r : REAL 
+    - galdepth_z : REAL 
+    - flux_w1 : REAL 
+    - flux_w2 : REAL 
+    - flux_w3 : REAL 
+    - flux_w4 : REAL 
+    - flux_ivar_w1 : REAL 
+    - flux_ivar_w2 : REAL 
+    - flux_ivar_w3 : REAL 
+    - flux_ivar_w4 : REAL 
+    - mw_transmission_w1 : REAL 
+    - mw_transmission_w2 : REAL 
+    - mw_transmission_w3 : REAL 
+    - mw_transmission_w4 : REAL 
+    - allmask_g : SMALLINT 
+    - allmask_r : SMALLINT 
+    - allmask_z : SMALLINT 
+    - fiberflux_g : REAL 
+    - fiberflux_r : REAL 
+    - fiberflux_z : REAL 
+    - fibertotflux_g : REAL 
+    - fibertotflux_r : REAL 
+    - fibertotflux_z : REAL 
+    - ref_epoch : REAL 
+    - wisemask_w1 : SMALLINT 
+    - wisemask_w2 : SMALLINT 
+    - maskbits : SMALLINT 
+    - shape_r : REAL 
+    - shape_e1 : REAL 
+    - shape_e2 : REAL 
+    - shape_r_ivar : REAL 
+    - shape_e1_ivar : REAL 
+    - shape_e2_ivar : REAL 
+    - sersic : REAL 
+    - sersic_ivar : REAL 
+    - ref_id : BIGINT 
+    - ref_cat : VARCHAR(2) 
+    - gaia_phot_g_mean_mag : REAL 
+    - gaia_phot_g_mean_flux_over_error : REAL 
+    - gaia_phot_bp_mean_mag : REAL 
+    - gaia_phot_bp_mean_flux_over_error : REAL 
+    - gaia_phot_rp_mean_mag : REAL 
+    - gaia_phot_rp_mean_flux_over_error : REAL 
+    - gaia_phot_bp_rp_excess_factor : REAL 
+    - gaia_duplicated_source : BOOLEAN 
+    - gaia_astrometric_sigma5d_max : REAL 
+    - gaia_astrometric_params_solved : SMALLINT 
+    - parallax : REAL 
+    - parallax_ivar : REAL 
+    - pmra : REAL 
+    - pmra_ivar : REAL 
+    - pmdec : REAL 
+    - pmdec_ivar : REAL 
+    - targetid : BIGINT 
+
+ - frame: 
+    - frameid : INTEGER 
+    - night : INTEGER 
+    - expid : INTEGER 
+    - tileid : INTEGER 
+    - mjd : DOUBLE_PRECISION 
+    - exptime : REAL 
+    - ebv : REAL 
+    - camera : VARCHAR(2) 
+    - tsnr2_gpbdark : REAL 
+    - tsnr2_elg : REAL 
+    - tsnr2_gpbbright : REAL 
+    - tsnr2_lya : DOUBLE_PRECISION 
+    - tsnr2_bgs : REAL 
+    - tsnr2_gpbbackup : REAL 
+    - tsnr2_qso : REAL 
+    - tsnr2_lrg : REAL 
+
+ - target: 
+    - id : NUMERIC(39, 0) 
+    - targetid : BIGINT 
+    - photsys : VARCHAR(1) 
+    - subpriority : DOUBLE_PRECISION 
+    - obsconditions : BIGINT 
+    - priority_init : BIGINT 
+    - numobs_init : BIGINT 
+    - hpxpixel : BIGINT 
+    - cmx_target : BIGINT 
+    - desi_target : BIGINT 
+    - bgs_target : BIGINT 
+    - mws_target : BIGINT 
+    - sv1_desi_target : BIGINT 
+    - sv1_bgs_target : BIGINT 
+    - sv1_mws_target : BIGINT 
+    - sv2_desi_target : BIGINT 
+    - sv2_bgs_target : BIGINT 
+    - sv2_mws_target : BIGINT 
+    - sv3_desi_target : BIGINT 
+    - sv3_bgs_target : BIGINT 
+    - sv3_mws_target : BIGINT 
+    - scnd_target : BIGINT 
+    - sv1_scnd_target : BIGINT 
+    - sv2_scnd_target : BIGINT 
+    - sv3_scnd_target : BIGINT 
+    - survey : VARCHAR(7) 
+    - program : VARCHAR(6) 
+    - tileid : INTEGER 
+
+ - ztile: 
+    - id : NUMERIC(39, 0) 
+    - targetphotid : NUMERIC(39, 0) 
+    - targetid : BIGINT 
+    - survey : VARCHAR(7) 
+    - program : VARCHAR(6) 
+    - spgrp : VARCHAR 
+    - spgrpval : INTEGER 
+    - z : DOUBLE_PRECISION 
+    - zerr : DOUBLE_PRECISION 
+    - zwarn : BIGINT 
+    - chi2 : DOUBLE_PRECISION 
+    - coeff_0 : DOUBLE_PRECISION 
+    - coeff_1 : DOUBLE_PRECISION 
+    - coeff_2 : DOUBLE_PRECISION 
+    - coeff_3 : DOUBLE_PRECISION 
+    - coeff_4 : DOUBLE_PRECISION 
+    - coeff_5 : DOUBLE_PRECISION 
+    - coeff_6 : DOUBLE_PRECISION 
+    - coeff_7 : DOUBLE_PRECISION 
+    - coeff_8 : DOUBLE_PRECISION 
+    - coeff_9 : DOUBLE_PRECISION 
+    - npixels : BIGINT 
+    - spectype : VARCHAR(6) 
+    - subtype : VARCHAR(20) 
+    - ncoeff : BIGINT 
+    - deltachi2 : DOUBLE_PRECISION 
+    - coadd_fiberstatus : INTEGER 
+    - tileid : INTEGER 
+    - coadd_numexp : SMALLINT 
+    - coadd_exptime : REAL 
+    - coadd_numnight : SMALLINT 
+    - coadd_numtile : SMALLINT 
+    - mean_delta_x : REAL 
+    - rms_delta_x : REAL 
+    - mean_delta_y : REAL 
+    - rms_delta_y : REAL 
+    - mean_fiber_ra : DOUBLE_PRECISION 
+    - std_fiber_ra : REAL 
+    - mean_fiber_dec : DOUBLE_PRECISION 
+    - std_fiber_dec : REAL 
+    - mean_psf_to_fiber_specflux : REAL 
+    - tsnr2_gpbdark_b : REAL 
+    - tsnr2_elg_b : REAL 
+    - tsnr2_gpbbright_b : REAL 
+    - tsnr2_lya_b : REAL 
+    - tsnr2_bgs_b : REAL 
+    - tsnr2_gpbbackup_b : REAL 
+    - tsnr2_qso_b : REAL 
+    - tsnr2_lrg_b : REAL 
+    - tsnr2_gpbdark_r : REAL 
+    - tsnr2_elg_r : REAL 
+    - tsnr2_gpbbright_r : REAL 
+    - tsnr2_lya_r : REAL 
+    - tsnr2_bgs_r : REAL 
+    - tsnr2_gpbbackup_r : REAL 
+    - tsnr2_qso_r : REAL 
+    - tsnr2_lrg_r : REAL 
+    - tsnr2_gpbdark_z : REAL 
+    - tsnr2_elg_z : REAL 
+    - tsnr2_gpbbright_z : REAL 
+    - tsnr2_lya_z : REAL 
+    - tsnr2_bgs_z : REAL 
+    - tsnr2_gpbbackup_z : REAL 
+    - tsnr2_qso_z : REAL 
+    - tsnr2_lrg_z : REAL 
+    - tsnr2_gpbdark : REAL 
+    - tsnr2_elg : REAL 
+    - tsnr2_gpbbright : REAL 
+    - tsnr2_lya : REAL 
+    - tsnr2_bgs : REAL 
+    - tsnr2_gpbbackup : REAL 
+    - tsnr2_qso : REAL 
+    - tsnr2_lrg : REAL 
+    - sv_nspec : SMALLINT 
+    - sv_primary : BOOLEAN 
+    - main_nspec : SMALLINT 
+    - main_primary : BOOLEAN 
+    - zcat_nspec : SMALLINT 
+    - zcat_primary : BOOLEAN 
+
+ - tile: 
+    - tileid : INTEGER 
+    - survey : VARCHAR(20) 
+    - program : VARCHAR(6) 
+    - faprgrm : VARCHAR(20) 
+    - faflavor : VARCHAR(20) 
+    - nexp : BIGINT 
+    - exptime : DOUBLE_PRECISION 
+    - tilera : DOUBLE_PRECISION 
+    - tiledec : DOUBLE_PRECISION 
+    - efftime_etc : DOUBLE_PRECISION 
+    - efftime_spec : DOUBLE_PRECISION 
+    - efftime_gfa : DOUBLE_PRECISION 
+    - goaltime : DOUBLE_PRECISION 
+    - obsstatus : VARCHAR(20) 
+    - lrg_efftime_dark : DOUBLE_PRECISION 
+    - elg_efftime_dark : DOUBLE_PRECISION 
+    - bgs_efftime_bright : DOUBLE_PRECISION 
+    - lya_efftime_dark : DOUBLE_PRECISION 
+    - goaltype : VARCHAR(20) 
+    - mintfrac : DOUBLE_PRECISION 
+    - lastnight : INTEGER 
+
+ - exposure: 
+    - night : INTEGER 
+    - expid : INTEGER 
+    - tileid : INTEGER 
+    - tilera : DOUBLE_PRECISION 
+    - tiledec : DOUBLE_PRECISION 
+    - date_obs : TIMESTAMP 
+    - mjd : DOUBLE_PRECISION 
+    - survey : VARCHAR(7) 
+    - program : VARCHAR(6) 
+    - faprgrm : VARCHAR(16) 
+    - faflavor : VARCHAR(19) 
+    - exptime : DOUBLE_PRECISION 
+    - efftime_spec : DOUBLE_PRECISION 
+    - goaltime : DOUBLE_PRECISION 
+    - goaltype : VARCHAR(6) 
+    - mintfrac : DOUBLE_PRECISION 
+    - airmass : REAL 
+    - ebv : DOUBLE_PRECISION 
+    - seeing_etc : DOUBLE_PRECISION 
+    - efftime_etc : REAL 
+    - tsnr2_elg : REAL 
+    - tsnr2_qso : REAL 
+    - tsnr2_lrg : REAL 
+    - tsnr2_lya : DOUBLE_PRECISION 
+    - tsnr2_bgs : REAL 
+    - tsnr2_gpbdark : REAL 
+    - tsnr2_gpbbright : REAL 
+    - tsnr2_gpbbackup : REAL 
+    - lrg_efftime_dark : REAL 
+    - elg_efftime_dark : REAL 
+    - bgs_efftime_bright : REAL 
+    - lya_efftime_dark : DOUBLE_PRECISION 
+    - gpb_efftime_dark : REAL 
+    - gpb_efftime_bright : REAL 
+    - gpb_efftime_backup : REAL 
+    - transparency_gfa : DOUBLE_PRECISION 
+    - seeing_gfa : DOUBLE_PRECISION 
+    - fiber_fracflux_gfa : DOUBLE_PRECISION 
+    - fiber_fracflux_elg_gfa : DOUBLE_PRECISION 
+    - fiber_fracflux_bgs_gfa : DOUBLE_PRECISION 
+    - fiberfac_gfa : DOUBLE_PRECISION 
+    - fiberfac_elg_gfa : DOUBLE_PRECISION 
+    - fiberfac_bgs_gfa : DOUBLE_PRECISION 
+    - airmass_gfa : DOUBLE_PRECISION 
+    - sky_mag_ab_gfa : DOUBLE_PRECISION 
+    - sky_mag_g_spec : DOUBLE_PRECISION 
+    - sky_mag_r_spec : DOUBLE_PRECISION 
+    - sky_mag_z_spec : DOUBLE_PRECISION 
+    - efftime_gfa : DOUBLE_PRECISION 
+    - efftime_dark_gfa : DOUBLE_PRECISION 
+    - efftime_bright_gfa : DOUBLE_PRECISION 
+    - efftime_backup_gfa : DOUBLE_PRECISION 
+
