@@ -1,0 +1,6 @@
+Add software path
+
+set environment variables:
+$DESI_SPECTRO_REDUX = /global/cfs/cdirs/desi/spectro/redux
+$DESISURVEY_OUTPUT = /global/cscratch1/sd/ronitnag
+$DESI_SOFTWARE_PATH = /global/cfs/cdirs/desi/software/cori/desiconda/20190730-1.3.0-spec/code
