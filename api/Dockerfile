@@ -7,10 +7,11 @@ RUN \
     apt-get update              &&  \
     apt-get upgrade --yes       &&  \
     apt-get install --yes           \
-        python3-flask
-
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+        python3-flask               \
+        python3-astropy             \
+        python3-matplotlib          \
+        python3-numpy               \
+        python3-sqlalchemy     
 
 ADD app.py /srv/app.py
 ENV FLASK_APP=/srv/app.py

@@ -9,20 +9,30 @@ level:4, tile -> frame | ph.ebv=fr.ebv AND tg.tileid=fr.tileid AND fb.tileid=fr.
 level:5, frame -> ztile | ph.targetid=zt.targetid AND tg.survey=zt.survey AND tg.program=zt.program AND tg.targetid=zt.targetid AND tg.id=zt.id AND tg.tileid=zt.tileid AND fb.targetid=zt.targetid AND fb.id=zt.id AND fb.tileid=zt.tileid AND t.program=zt.program AND t.survey=zt.survey AND t.tileid=zt.tileid AND fr.tsnr2_lya=zt.tsnr2_lya AND fr.tsnr2_lrg=zt.tsnr2_lrg AND fr.tsnr2_gpbbackup=zt.tsnr2_gpbbackup AND fr.tsnr2_elg=zt.tsnr2_elg AND fr.tsnr2_gpbbright=zt.tsnr2_gpbbright AND fr.tsnr2_qso=zt.tsnr2_qso AND fr.tileid=zt.tileid AND fr.tsnr2_bgs=zt.tsnr2_bgs AND fr.tsnr2_gpbdark=zt.tsnr2_gpbdark AND 
 
 
-SELECT * FROM 
+
+SELECT ph.ls_id, tg.targetid, tg.survey, t.program, tg.tileid, t.exptime, zt.z, fr.tsnr2_lya, zt.tsnr2_lya   
+FROM fuji.photometry as ph, fuji.target as tg, fuji.fiberassign as fb, fuji.tile as t, fuji.frame as fr, fuji.ztile as zt
+WHERE ph.targetid=tg.targetid AND
+tg.tileid=t.tileid AND fb.tileid=t.tileid AND
+tg.tileid=fr.tileid AND fb.tileid=fr.tileid AND t.tileid=fr.tileid AND t.exptime=fr.exptime AND
+ph.targetid=zt.targetid AND tg.targetid=zt.targetid  AND tg.tileid=zt.tileid AND fb.targetid=zt.targetid  AND fb.tileid=zt.tileid AND t.tileid=zt.tileid AND fr.tileid=zt.tileid
+LIMIT 20;
+
+
+
+SELECT ph.ls_id, tg.targetid, tg.survey, t.program, tg.tileid, t.exptime, zt.z, fr.tsnr2_lya, zt.tsnr2_lya   FROM 
 fuji.photometry ph
 JOIN fuji.target tg
 ON ph.targetid=tg.targetid
 JOIN fuji.fiberassign fb
-ON ph.targetid=fb.targetid AND tg.targetid=fb.targetid AND tg.id=fb.id AND tg.tileid=fb.tileid
+ON ph.targetid=fb.targetid 
 JOIN fuji.tile t
-ON tg.program=t.program AND tg.survey=t.survey AND tg.tileid=t.tileid AND fb.tileid=t.tileid 
+ON  tg.tileid=t.tileid AND fb.tileid=t.tileid 
 JOIN fuji.frame fr
 ON ph.ebv=fr.ebv AND tg.tileid=fr.tileid AND fb.tileid=fr.tileid AND t.tileid=fr.tileid AND t.exptime=fr.exptime 
 JOIN fuji.ztile zt
-ON ph.targetid=zt.targetid AND tg.survey=zt.survey AND tg.program=zt.program AND tg.targetid=zt.targetid AND tg.id=zt.id AND tg.tileid=zt.tileid AND fb.targetid=zt.targetid AND fb.id=zt.id AND fb.tileid=zt.tileid AND t.program=zt.program AND t.survey=zt.survey AND t.tileid=zt.tileid AND fr.tileid=zt.tileid
-LIMIT 3;
-
+ON ph.targetid=zt.targetid  AND tg.targetid=zt.targetid  AND tg.tileid=zt.tileid AND fb.targetid=zt.targetid  AND fb.tileid=zt.tileid AND t.tileid=zt.tileid AND fr.tileid=zt.tileid
+LIMIT 20;
 
 ---------------- Real 
 SELECT ph.ls_id, tg.targetid, tg.survey, t.program, tg.tileid, t.exptime, zt.z, fr.tsnr2_lya, zt.tsnr2_lya   FROM 
@@ -37,9 +47,24 @@ JOIN fuji.frame fr
 ON ph.ebv=fr.ebv AND tg.tileid=fr.tileid AND fb.tileid=fr.tileid AND t.tileid=fr.tileid AND t.exptime=fr.exptime 
 JOIN fuji.ztile zt
 ON ph.targetid=zt.targetid AND tg.survey=zt.survey AND tg.program=zt.program AND tg.targetid=zt.targetid  AND tg.tileid=zt.tileid AND fb.targetid=zt.targetid  AND fb.tileid=zt.tileid AND t.program=zt.program AND t.survey=zt.survey AND t.tileid=zt.tileid AND fr.tileid=zt.tileid
-LIMIT 3;
+LIMIT 20;
 ----------------------
 
+
+
+SELECT * FROM 
+fuji.photometry ph
+JOIN fuji.target tg
+ON ph.targetid=tg.targetid
+JOIN fuji.fiberassign fb
+ON ph.targetid=fb.targetid AND tg.targetid=fb.targetid AND tg.id=fb.id AND tg.tileid=fb.tileid
+JOIN fuji.tile t
+ON tg.program=t.program AND tg.survey=t.survey AND tg.tileid=t.tileid AND fb.tileid=t.tileid 
+JOIN fuji.frame fr
+ON ph.ebv=fr.ebv AND tg.tileid=fr.tileid AND fb.tileid=fr.tileid AND t.tileid=fr.tileid AND t.exptime=fr.exptime 
+JOIN fuji.ztile zt
+ON ph.targetid=zt.targetid AND tg.survey=zt.survey AND tg.program=zt.program AND tg.targetid=zt.targetid AND tg.id=zt.id AND tg.tileid=zt.tileid AND fb.targetid=zt.targetid AND fb.id=zt.id AND fb.tileid=zt.tileid AND t.program=zt.program AND t.survey=zt.survey AND t.tileid=zt.tileid AND fr.tileid=zt.tileid
+LIMIT 3;
 
 SELECT ph.ls_id, tg.targetid, tg.survey, t.program, tg.tileid, t.exptime, zt.z, fr.tsnr2_lya, zt.tsnr2_lya   
 FROM fuji.photometry as ph, fuji.target as tg, fuji.fiberassign as fb, fuji.tile as t, fuji.frame as fr,fuji.ztile as zt 
